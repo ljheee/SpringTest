@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<!-- Spring Bean Config file -->
+
+
+	<!-- 声明组件 -->
+	
+	<!-- 声明一个hm对象，类型由class指定，scope为原型[每次都创建一个新对象]，还可以是单例Singleton的。hm对象的message属性 值为DI()-->
+	<bean id="hm" class="com.ljheee.spring.HelloMessage" scope="prototype">
+		<!--   <property name="message" value="DI()"></property>   -->
+	</bean>
+	
+	
+	
+	<!-- 数据源(只有一份) -->
+	<bean id="ds" class="com.ljheee.spring.MyDataSource" scope="singleton">
+	
+	</bean>
+	
+	<!-- 数据访问Dao，依赖于数据源 -->
+	<bean id="dao" class="com.ljheee.spring.Dao" scope="prototype">
+		<property name="dataSource" ref="ds" />
+	</bean>
+	
+	
+	<!-- 业务逻辑 -->
+	<bean id="appService" class="com.ljheee.spring.AppService" scope="prototype" >
+		<property name="dao" ref="dao" />
+	</bean>
+
+
+
+</beans>
